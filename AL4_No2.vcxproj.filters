@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Sources\Scene\ClearScene.cpp">
+      <Filter>Sources\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Scene\GameOverScene.cpp">
+      <Filter>Sources\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Scene\GameScene.cpp">
+      <Filter>Sources\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Scene\SceneManager.cpp">
+      <Filter>Sources\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Scene\TitleScene.cpp">
+      <Filter>Sources\Scene</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{e024f205-c121-4da1-9c73-853923878271}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Scene">
+      <UniqueIdentifier>{76ff3f82-98b6-4ab4-8c70-478ada905d16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Utils">
+      <UniqueIdentifier>{12f0b423-16ab-4950-92a5-ffacac6daa1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\UI">
+      <UniqueIdentifier>{bf26ec9f-f86f-423e-9a6c-d0d5be7db120}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Sources\Scene\ClearScene.h">
+      <Filter>Sources\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Scene\GameOverScene.h">
+      <Filter>Sources\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Scene\GameScene.h">
+      <Filter>Sources\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Scene\IScene.h">
+      <Filter>Sources\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Scene\SceneManager.h">
+      <Filter>Sources\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Scene\TitleScene.h">
+      <Filter>Sources\Scene</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
