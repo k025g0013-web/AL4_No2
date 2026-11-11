@@ -1,0 +1,325 @@
+#include "Easing.h"
+#include "KamataEngine.h"
+#include "Vector.h"
+
+#include <numbers>
+
+using namespace KamataEngine;
+
+template <typename T>
+T Easing::Interpolate(EasingMode mode, float t, const T &start, const T &end) {
+	// 補間率が範囲外にならないよう0～1へ制限する
+	t = std::clamp(t, 0.0f, 1.0f);
+	// イージング後の補間率
+	float rate = t;
+
+	// 指定されたイージング関数を実行する
+	switch (mode) {
+	case EasingMode::Linear: rate = t; break;
+
+	case EasingMode::EaseInSine:     rate = InSine(t); break;
+	case EasingMode::EaseOutSine:    rate = OutSine(t); break;
+	case EasingMode::EaseInOutSine:  rate = InOutSine(t); break;
+
+	case EasingMode::EaseInQuad:     rate = InQuad(t); break;
+	case EasingMode::EaseOutQuad:    rate = OutQuad(t); break;
+	case EasingMode::EaseInOutQuad:  rate = InOutQuad(t); break;
+
+	case EasingMode::EaseInCubic:    rate = InCubic(t); break;
+	case EasingMode::EaseOutCubic:   rate = OutCubic(t); break;
+	case EasingMode::EaseInOutCubic: rate = InOutCubic(t); break;
+
+	case EasingMode::EaseInQuart:    rate = InQuart(t); break;
+	case EasingMode::EaseOutQuart:   rate = OutQuart(t); break;
+	case EasingMode::EaseInOutQuart: rate = InOutQuart(t); break;
+
+	case EasingMode::EaseInQuint:    rate = InQuint(t); break;
+	case EasingMode::EaseOutQuint:   rate = OutQuint(t); break;
+	case EasingMode::EaseInOutQuint: rate = InOutQuint(t); break;
+
+	case EasingMode::EaseInExpo:     rate = InExpo(t); break;
+	case EasingMode::EaseOutExpo:    rate = OutExpo(t); break;
+	case EasingMode::EaseInOutExpo:  rate = InOutExpo(t); break;
+
+	case EasingMode::EaseInCirc:     rate = InCirc(t); break;
+	case EasingMode::EaseOutCirc:    rate = OutCirc(t); break;
+	case EasingMode::EaseInOutCirc:  rate = InOutCirc(t); break;
+
+	case EasingMode::EaseInBack:     rate = InBack(t); break;
+	case EasingMode::EaseOutBack:    rate = OutBack(t); break;
+	case EasingMode::EaseInOutBack:  rate = InOutBack(t); break;
+
+	case EasingMode::EaseInElastic:  rate = InElastic(t); break;
+	case EasingMode::EaseOutElastic: rate = OutElastic(t); break;
+	case EasingMode::EaseInOutElastic: rate = InOutElastic(t); break;
+
+	case EasingMode::EaseInBounce:   rate = InBounce(t); break;
+	case EasingMode::EaseOutBounce:  rate = OutBounce(t); break;
+	case EasingMode::EaseInOutBounce: rate = InOutBounce(t); break;
+	}
+
+	// 補間率を用いて開始値と終了値の間を補間する
+	return start + (end - start) * rate;
+}
+
+#pragma region イージング関数群
+
+//=============================================================================
+// Sine
+//=============================================================================
+
+// ゆっくり加速する補間
+float Easing::InSine(float t) {
+	return 1.0f - std::cos((t * std::numbers::pi_v<float>) / 2.0f);
+}
+
+// ゆっくり減速する補間
+float Easing::OutSine(float t) {
+	return std::sin((t * std::numbers::pi_v<float>) / 2.0f);
+}
+
+// ゆっくり加速し、ゆっくり減速する補間
+float Easing::InOutSine(float t) {
+	return -(std::cos(std::numbers::pi_v<float> *t) - 1.0f) / 2.0f;
+}
+
+//=============================================================================
+// Quad
+//=============================================================================
+
+// 2次関数による加速補間
+float Easing::InQuad(float t) {
+	return t * t;
+}
+
+// 2次関数による減速補間
+float Easing::OutQuad(float t) {
+	return t * (2.0f - t);
+}
+
+// 2次関数による加減速補間
+float Easing::InOutQuad(float t) {
+	return t < 0.5f ?
+		2.0f * t * t :
+		1.0f - std::pow(-2.0f * t + 2.0f, 2.0f) / 2.0f;
+}
+
+//=============================================================================
+// Cubic
+//=============================================================================
+
+// 3次関数による加速補間
+float Easing::InCubic(float t) {
+	return t * t * t;
+}
+
+// 3次関数による減速補間
+float Easing::OutCubic(float t) {
+	float invT = 1.0f - t;
+	return 1.0f - (invT * invT * invT);
+}
+
+// 3次関数による加減速補間
+float Easing::InOutCubic(float t) {
+	return t < 0.5f ?
+		4.0f * t * t * t :
+		1.0f - std::pow(-2.0f * t + 2.0f, 3.0f) / 2.0f;
+}
+
+//=============================================================================
+// Quart
+//=============================================================================
+
+// 4次関数による加速補間
+float Easing::InQuart(float t) {
+	float t2 = t * t;
+	return t2 * t2;
+}
+
+// 4次関数による減速補間
+float Easing::OutQuart(float t) {
+	float invT = 1.0f - t;
+	float invT2 = invT * invT;
+	return 1.0f - (invT2 * invT2);
+}
+
+// 4次関数による加減速補間
+float Easing::InOutQuart(float t) {
+	return t < 0.5f ?
+		8.0f * t * t * t * t :
+		1.0f - std::pow(-2.0f * t + 2.0f, 4.0f) / 2.0f;
+}
+
+//=============================================================================
+// Quint
+//=============================================================================
+
+// 5次関数による加速補間
+float Easing::InQuint(float t) {
+	float t2 = t * t;
+	return t2 * t2 * t;
+}
+
+// 5次関数による減速補間
+float Easing::OutQuint(float t) {
+	return 1.0f - std::pow(1.0f - t, 5.0f);
+}
+
+// 5次関数による加減速補間
+float Easing::InOutQuint(float t) {
+	return t < 0.5f ?
+		16.0f * t * t * t * t * t :
+		1.0f - std::pow(-2.0f * t + 2.0f, 5.0f) / 2.0f;
+}
+
+//=============================================================================
+// Expo
+//=============================================================================
+
+// 指数関数による加速補間
+float Easing::InExpo(float t) {
+	return t == 0.0f ? 0.0f : std::pow(2.0f, 10.0f * t - 10.0f);
+}
+
+// 指数関数による減速補間
+float Easing::OutExpo(float t) {
+	return t == 1.0f ? 1.0f : 1.0f - std::pow(2.0f, -10.0f * t);
+}
+
+// 指数関数による加減速補間
+float Easing::InOutExpo(float t) {
+	if (t == 0.0f) return 0.0f;
+	if (t == 1.0f) return 1.0f;
+
+	return t < 0.5f ?
+		std::pow(2.0f, 20.0f * t - 10.0f) / 2.0f :
+		(2.0f - std::pow(2.0f, -20.0f * t + 10.0f)) / 2.0f;
+}
+
+//=============================================================================
+// Circ
+//=============================================================================
+
+// 円運動を利用した加速補間
+float Easing::InCirc(float t) {
+	return 1.0f - std::sqrt(1.0f - (t * t));
+}
+
+// 円運動を利用した減速補間
+float Easing::OutCirc(float t) {
+	float tMinus1 = t - 1.0f;
+	return std::sqrt(1.0f - (tMinus1 * tMinus1));
+}
+
+// 円運動を利用した加減速補間
+float Easing::InOutCirc(float t) {
+	return t < 0.5f ?
+		(1.0f - std::sqrt(1.0f - std::pow(2.0f * t, 2.0f))) / 2.0f :
+		(std::sqrt(1.0f - std::pow(-2.0f * t + 2.0f, 2.0f)) + 1.0f) / 2.0f;
+}
+
+//=============================================================================
+// Back
+//=============================================================================
+
+// Back・Elastic・Bounce用の定数
+namespace {
+	constexpr float C1 = 1.70158f;
+	constexpr float C2 = C1 * 1.525f;
+	constexpr float C3 = C1 + 1.0f;
+	constexpr float C4 = (2.0f * std::numbers::pi_v<float>) / 3.0f;
+	constexpr float C5 = (2.0f * std::numbers::pi_v<float>) / 4.5f;
+}
+
+// 一度逆方向へ動いてから加速する補間
+float Easing::InBack(float t) {
+	return C3 * t * t * t - C1 * t * t;
+}
+
+// 行き過ぎてから戻る減速補間
+float Easing::OutBack(float t) {
+	float tMinus1 = t - 1.0f;
+	return 1.0f + C3 * tMinus1 * tMinus1 * tMinus1 + C1 * tMinus1 * tMinus1;
+}
+
+// Backによる加減速補間
+float Easing::InOutBack(float t) {
+	return t < 0.5f ?
+		(std::pow(2.0f * t, 2.0f) * ((C2 + 1.0f) * 2.0f * t - C2)) / 2.0f :
+		(std::pow(2.0f * t - 2.0f, 2.0f) * ((C2 + 1.0f) * (t * 2.0f - 2.0f) + C2) + 2.0f) / 2.0f;
+}
+
+//=============================================================================
+// Elastic
+//=============================================================================
+
+// バネのように振動しながら加速する補間
+float Easing::InElastic(float t) {
+	if (t == 0.0f) return 0.0f;
+	if (t == 1.0f) return 1.0f;
+
+	return -std::pow(2.0f, 10.0f * t - 10.0f) *
+		std::sin((t * 10.0f - 10.75f) * C4);
+}
+
+// バネのように振動しながら減速する補間
+float Easing::OutElastic(float t) {
+	if (t == 0.0f) return 0.0f;
+	if (t == 1.0f) return 1.0f;
+
+	return std::pow(2.0f, -10.0f * t) *
+		std::sin((t * 10.0f - 0.75f) * C4) + 1.0f;
+}
+
+// バネのような加減速補間
+float Easing::InOutElastic(float t) {
+	if (t == 0.0f) return 0.0f;
+	if (t == 1.0f) return 1.0f;
+
+	return t < 0.5f ?
+		-(std::pow(2.0f, 20.0f * t - 10.0f) * std::sin((20.0f * t - 11.125f) * C5)) / 2.0f :
+		(std::pow(2.0f, -20.0f * t + 10.0f) * std::sin((20.0f * t - 11.125f) * C5)) / 2.0f + 1.0f;
+}
+
+//=============================================================================
+// Bounce
+//=============================================================================
+
+// ボールが跳ね返るような減速補間
+float Easing::OutBounce(float t) {
+	const float n1 = 7.5625f;
+	const float d1 = 2.75f;
+
+	if (t < 1.0f / d1) {
+		return n1 * t * t;
+	} else if (t < 2.0f / d1) {
+		t -= 1.5f / d1;
+		return n1 * t * t + 0.75f;
+	} else if (t < 2.5f / d1) {
+		t -= 2.25f / d1;
+		return n1 * t * t + 0.9375f;
+	} else {
+		t -= 2.625f / d1;
+		return n1 * t * t + 0.984375f;
+	}
+}
+
+// Bounceの加速補間
+float Easing::InBounce(float t) {
+	return 1.0f - OutBounce(1.0f - t);
+}
+
+// Bounceによる加減速補間
+float Easing::InOutBounce(float t) {
+	return t < 0.5f ?
+		(1.0f - OutBounce(1.0f - 2.0f * t)) / 2.0f :
+		(1.0f + OutBounce(2.0f * t - 1.0f)) / 2.0f;
+}
+
+#pragma endregion
+
+// 使用する型のテンプレートを明示的に生成する
+template float Easing::Interpolate<float>(EasingMode, float, const float &, const float &);
+template Vector2 Easing::Interpolate<Vector2>(EasingMode, float, const Vector2 &, const Vector2 &);
+template Vector3 Easing::Interpolate<Vector3>(EasingMode, float, const Vector3 &, const Vector3 &);
+template Vector4 Easing::Interpolate<Vector4>(EasingMode, float, const Vector4 &, const Vector4 &);
