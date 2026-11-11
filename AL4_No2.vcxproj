@@ -179,6 +179,7 @@ xcopy "$(ProjectDir)..\External\KamataEngine\shaders" "$(ProjectDir)Resources\En
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Sources\Asset\AssetManager.cpp" />
     <ClCompile Include="Sources\Scene\ClearScene.cpp" />
     <ClCompile Include="Sources\Scene\GameOverScene.cpp" />
     <ClCompile Include="Sources\Scene\GameScene.cpp" />
@@ -186,12 +187,15 @@ xcopy "$(ProjectDir)..\External\KamataEngine\shaders" "$(ProjectDir)Resources\En
     <ClCompile Include="Sources\Scene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Sources\Asset\AssetManager.h" />
     <ClInclude Include="Sources\Scene\ClearScene.h" />
     <ClInclude Include="Sources\Scene\GameOverScene.h" />
     <ClInclude Include="Sources\Scene\GameScene.h" />
     <ClInclude Include="Sources\Scene\IScene.h" />
     <ClInclude Include="Sources\Scene\SceneManager.h" />
     <ClInclude Include="Sources\Scene\TitleScene.h" />
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
