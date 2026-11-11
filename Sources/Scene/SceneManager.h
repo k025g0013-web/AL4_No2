@@ -5,15 +5,16 @@
 #include <memory>
 #include <optional>
 
-enum class TransitionState {
-    kNone,      // 通常
-    kFadeOut,   // フェードアウト
-    kFadeIn,    // フェードイン
-};
-
 class WipeManager;
 
 class SceneManager {
+public:
+    enum class TransitionState {
+        kNone,      // 通常
+        kFadeOut,   // フェードアウト
+        kFadeIn,    // フェードイン
+    };
+
 public:
     SceneManager() = default;
     ~SceneManager() = default;
@@ -38,14 +39,13 @@ private:
     // シーン切り替え
     void ChangeScene(IScene::SceneType type);
 
-    // シーン遷移要求
-    void RequestSceneChange(IScene::SceneType nextScene);
+    // シーン遷移処理
+    void CheckSceneChange();
 
     // 遷移処理
     void UpdateTransition();
 
 private:
-
     // 現在のシーン
     std::unique_ptr<IScene> scene_;
 

@@ -17,6 +17,9 @@
     <ClCompile Include="Sources\Scene\TitleScene.cpp">
       <Filter>Sources\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\Asset\AssetManager.cpp">
+      <Filter>Sources\Asset</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Sources">
@@ -25,10 +28,10 @@
     <Filter Include="Sources\Scene">
       <UniqueIdentifier>{76ff3f82-98b6-4ab4-8c70-478ada905d16}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\Utils">
+    <Filter Include="Sources\Asset">
       <UniqueIdentifier>{12f0b423-16ab-4950-92a5-ffacac6daa1e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\UI">
+    <Filter Include="Sources\Math">
       <UniqueIdentifier>{bf26ec9f-f86f-423e-9a6c-d0d5be7db120}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -51,5 +54,10 @@
     <ClInclude Include="Sources\Scene\TitleScene.h">
       <Filter>Sources\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\Asset\AssetManager.h">
+      <Filter>Sources\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h" />
+    <ClInclude Include="Matrix.h" />
   </ItemGroup>
 </Project>

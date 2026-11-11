@@ -1,6 +1,4 @@
 #pragma once
-#include <functional>
-#include <utility>
 
 class IScene {
 public:
@@ -24,20 +22,27 @@ public:
     // 描画
     virtual void Draw() = 0;
 
-    // 遷移要求用コールバックを設定
-    void SetSceneChangeCallback(std::function<void(SceneType)> callback) {
-        sceneChangeCallback_ = std::move(callback);
+    // シーン遷移要求があるか
+    bool IsSceneChangeRequested() const {
+        return isSceneChangeRequested_;
+    }
+
+    // 遷移先を取得
+    SceneType GetNextScene() const {
+        return nextScene_;
     }
 
 protected:
     // シーン遷移を要求
     void RequestSceneChange(SceneType nextScene) {
-        if (sceneChangeCallback_) {
-            sceneChangeCallback_(nextScene);
-        }
+        nextScene_ = nextScene;
+        isSceneChangeRequested_ = true;
     }
 
 private:
-    // シーン遷移要求用コールバック
-    std::function<void(SceneType)> sceneChangeCallback_;
+    // 遷移先
+    SceneType nextScene_ = SceneType::kTitle;
+
+    // シーン遷移要求フラグ
+    bool isSceneChangeRequested_ = false;
 };
